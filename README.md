@@ -73,8 +73,11 @@ finally:
 #### When commands are read from a tty, the interpreter is said to be in interactive mode. In this mode it prompts for the next command with the primary prompt, usually three greater-than signs (>>>); for continuation lines it prompts with the secondary prompt, by default three dots (...). 
     
 >>> hi_folks = True
+
 >>> if hi_folks:
+
 ...     print("Good Morning!")
+
 ...
 Good Morning!
 
