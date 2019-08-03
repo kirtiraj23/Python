@@ -542,3 +542,357 @@ It is possible to nest lists (create lists containing other lists), for example:
 >>> x[0][1]
 'b'
 [1, 8, 27, 64, 125, 216, 343]
+
+# if Statements:
+
+Perhaps the most well-known statement type is the if statement. For example:
+
+>>>
+
+
+>>> x = int(input("Please enter an integer: "))
+
+Please enter an integer: 42
+
+>>> if x < 0:
+
+...     x = 0
+
+...     print('Negative changed to zero')
+
+... elif x == 0:
+
+...     print('Zero')
+
+... elif x == 1:
+
+...     print('Single')
+
+... else:
+
+...     print('More')
+
+...
+
+More
+
+
+# for Statements
+
+The for statement in Python differs a bit from what you may be used to in C or Pascal. Rather than always iterating over an arithmetic progression of numbers (like in Pascal), or giving the user the ability to define both the iteration step and halting condition (as C), Python’s for statement iterates over the items of any sequence (a list or a string), in the order that they appear in the sequence. For example (no pun intended):
+
+>>>
+
+>>> # Measure some strings:
+
+... words = ['cat', 'window', 'defenestrate']
+
+>>> for w in words:
+
+...     print(w, len(w))
+
+...
+
+cat 3
+
+window 6
+
+defenestrate 12
+
+>>> for w in words[:]:  # Loop over a slice copy of the entire list.
+
+...     if len(w) > 6:
+
+...         words.insert(0, w)
+
+...
+
+>>> words
+
+['defenestrate', 'cat', 'window', 'defenestrate']
+
+# The range() Function
+If you do need to iterate over a sequence of numbers, the built-in function range() comes in handy. It generates arithmetic progressions:
+
+>>>
+
+>>> for i in range(5):
+
+...     print(i)
+
+...
+
+0
+
+1
+
+2
+
+3
+
+4
+
+range(5, 10)
+   
+   5, 6, 7, 8, 9
+
+range(0, 10, 3)
+  
+  0, 3, 6, 9
+
+range(-10, -100, -30)
+ 
+ -10, -40, -70
+ 
+ >>> a = ['Mary', 'had', 'a', 'little', 'lamb']
+
+>>> for i in range(len(a)):
+
+...     print(i, a[i])
+
+...
+
+0 Mary
+
+1 had
+
+2 a
+
+3 little
+
+4 lamb
+
+A strange thing happens if you just print a range:
+
+>>>
+
+>>> print(range(10))
+
+range(0, 10)
+
+In many ways the object returned by range() behaves as if it is a list, but in fact it isn’t. It is an object which returns the successive items of the desired sequence when you iterate over it, but it doesn’t really make the list, thus saving space.
+
+We say such an object is iterable, that is, suitable as a target for functions and constructs that expect something from which they can obtain successive items until the supply is exhausted. We have seen that the for statement is such an iterator. The function list() is another; it creates lists from iterables:
+
+>>> list(range(5))
+
+[0, 1, 2, 3, 4]
+
+
+# break and continue Statements, and else Clauses on Loops
+The break statement, like in C, breaks out of the innermost enclosing for or while loop.
+
+Loop statements may have an else clause; it is executed when the loop terminates through exhaustion of the list (with for) or when the condition becomes false (with while), but not when the loop is terminated by a break statement. This is exemplified by the following loop, which searches for prime numbers:
+
+>>>
+
+>>> for n in range(2, 10):
+
+...     for x in range(2, n):
+
+...         if n % x == 0:
+
+...             print(n, 'equals', x, '*', n//x)
+
+...             break
+
+...     else:
+
+...         # loop fell through without finding a factor
+
+...         print(n, 'is a prime number')
+
+...
+
+2 is a prime number
+
+3 is a prime number
+
+4 equals 2 * 2
+
+5 is a prime number
+
+6 equals 2 * 3
+
+7 is a prime number
+
+8 equals 2 * 4
+
+9 equals 3 * 3
+
+>>> for num in range(2, 10):
+
+...     if num % 2 == 0:
+
+...         print("Found an even number", num)
+
+...         continue
+
+...     print("Found a number", num)
+
+Found an even number 2
+
+Found a number 3
+
+Found an even number 4
+
+Found a number 5
+
+Found an even number 6
+
+Found a number 7
+
+Found an even number 8
+
+Found a number 9
+
+# pass Statements
+
+The pass statement does nothing. It can be used when a statement is required syntactically but the program requires no action. For example:
+
+>>>
+
+>>> while True:
+
+...     pass  # Busy-wait for keyboard interrupt (Ctrl+C)
+
+...
+
+This is commonly used for creating minimal classes:
+
+
+>>>
+
+>>> class MyEmptyClass:
+
+...     pass
+
+...
+
+Another place pass can be used is as a place-holder for a function or conditional body when you are working on new code, allowing you to keep 
+thinking at a more abstract level. The pass is silently ignored:
+
+>>>
+
+>>> def initlog(*args):
+
+...     pass   # Remember to implement this!
+
+...
+
+# Defining Functions
+
+We can create a function that writes the Fibonacci series to an arbitrary boundary:
+
+
+>>>
+
+>>> def fib(n):    # write Fibonacci series up to n
+
+...     """Print a Fibonacci series up to n."""
+
+...     a, b = 0, 1
+
+...     while a < n:
+
+...         print(a, end=' ')
+
+...         a, b = b, a+b
+
+...     print()
+
+...
+
+>>> # Now call the function we just defined:
+
+... fib(2000)
+
+0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597
+
+A function definition introduces the function name in the current symbol table. The value of the function name has a type that is recognized by the interpreter as a user-defined function. This value can be assigned to another name which can then also be used as a function. This serves as a general renaming mechanism:
+
+
+>>>
+
+>>> fib
+
+<function fib at 10042ed0>
+
+>>> f = fib
+
+>>> f(100)
+
+0 1 1 2 3 5 8 13 21 34 55 89
+
+Coming from other languages, you might object that fib is not a function but a procedure since it doesn’t return a value. In fact, even functions without a return statement do return a value, albeit a rather boring one. This value is called None (it’s a built-in name). Writing the value None is normally suppressed by the interpreter if it would be the only value written. You can see it if you really want to using 
+
+print():
+
+
+>>>
+
+>>> fib(0)
+
+>>> print(fib(0))
+
+None
+
+It is simple to write a function that returns a list of the numbers of the Fibonacci series, instead of printing it:
+
+>>>
+
+>>> def fib2(n):  # return Fibonacci series up to n
+
+...     """Return a list containing the Fibonacci series up to n."""
+
+...     result = []
+
+...     a, b = 0, 1
+
+...     while a < n:
+
+...         result.append(a)    # see below
+
+...         a, b = b, a+b
+
+...     return result
+
+...
+
+>>> f100 = fib2(100)    # call it
+
+>>> f100                # write the result
+
+[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
+
+This example, as usual, demonstrates some new Python features:
+
+
+
+The return statement returns with a value from a function. return without an expression argument returns None. Falling off the end of a function also returns None.
+
+The statement result.append(a) calls a method of the list object result. A method is a function that ‘belongs’ to an object and is named obj.methodname, where obj is some object (this may be an expression), and methodname is the name of a method that is defined by the object’s type. Different types define different methods. Methods of different types may have the same name without causing ambiguity. (It is possible to define your own object types and methods, using classes, see Classes) The method append() shown in the example is defined for list objects; it adds a new element at the end of the list. In this example it is equivalent to result = result + [a], but more efficient.
+
+
+The most useful form is to specify a default value for one or more arguments. This creates a function that can be called with fewer arguments than it is defined to allow. For example:
+
+def ask_ok(prompt, retries=4, reminder='Please try again!'):
+
+    while True:
+
+        ok = input(prompt)
+        
+        if ok in ('y', 'ye', 'yes'):
+        
+            return True
+        
+        if ok in ('n', 'no', 'nop', 'nope'):
+            
+            return False
+            
+        retries = retries - 1
+        
+        if retries < 0:
+                raise ValueError('invalid user response')
+                print(reminder)
+                
