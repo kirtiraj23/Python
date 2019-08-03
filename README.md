@@ -945,4 +945,411 @@ Reverse the elements of the list in place.
 
 list.copy()
 
+>>> fruits = ['orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
+
+>>> fruits.count('apple')
+
+2
+
+>>> fruits.count('tangerine')
+
+0
+
+>>> fruits.index('banana')
+3
+
+
+>>> fruits.index('banana', 4)  # Find next banana starting a position 4
+
+6
+
+>>> fruits.reverse()
+
+>>> fruits
+
+['banana', 'apple', 'kiwi', 'banana', 'pear', 'apple', 'orange']
+
+>>> fruits.append('grape')
+
+>>> fruits
+
+['banana', 'apple', 'kiwi', 'banana', 'pear', 'apple', 'orange', 'grape']
+
+>>> fruits.sort()
+
+>>> fruits
+
+['apple', 'apple', 'banana', 'banana', 'grape', 'kiwi', 'orange', 'pear']
+
+>>> fruits.pop()
+
+'pear'
+
 Return a shallow copy of the list. Equivalent to a[:].
+
+To implement a queue, use collections.deque which was designed to have fast appends and pops from both ends. For example:
+
+>>>
+
+>>> from collections import deque
+
+>>> queue = deque(["Eric", "John", "Michael"])
+
+>>> queue.append("Terry")           # Terry arrives
+
+>>> queue.append("Graham")          # Graham arrives
+
+>>> queue.popleft()                 # The first to arrive now leaves
+
+'Eric'
+
+>>> queue.popleft()                 # The second to arrive now leaves
+
+'John'
+
+>>> queue                           # Remaining queue in order of arrival
+
+deque(['Michael', 'Terry', 'Graham'])
+
+# List Comprehensions
+
+List comprehensions provide a concise way to create lists. Common applications are to make new lists where each element is the result of some operations applied to each member of another sequence or iterable, or to create a subsequence of those elements that satisfy a certain condition.
+
+For example, assume we want to create a list of squares, like:
+
+>>>
+
+>>> squares = []
+
+>>> for x in range(10):
+
+...     squares.append(x**2)
+
+...
+
+>>> squares
+
+[0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+
+or 
+
+squares = list(map(lambda x: x**2, range(10)))
+
+or 
+
+squares = [x**2 for x in range(10)]
+
+istcomp combines the elements of two lists if they are not equal:
+
+>>>
+
+>>> [(x, y) for x in [1,2,3] for y in [3,1,4] if x != y]
+
+[(1, 3), (1, 4), (2, 3), (2, 1), (2, 4), (3, 1), (3, 4)]
+
+and it's equivalent to 
+
+>>> combs = []
+
+>>> for x in [1,2,3]:
+
+...     for y in [3,1,4]:
+
+...         if x != y:
+
+...             combs.append((x, y))
+
+...
+
+>>> combs
+
+[(1, 3), (1, 4), (2, 3), (2, 1), (2, 4), (3, 1), (3, 4)]
+
+# The del statement
+
+>>>
+
+>>> a = [-1, 1, 66.25, 333, 333, 1234.5]
+
+>>> del a[0]
+
+>>> a
+
+[1, 66.25, 333, 333, 1234.5]
+
+>>> del a[2:4]
+
+>>> a
+
+[1, 66.25, 1234.5]
+
+>>> del a[:]
+
+>>> a
+
+[]
+
+del can also be used to delete entire variables:
+
+>>>
+
+>>> del a
+
+# Tuples and Sequences
+
+>>> t = 12345, 54321, 'hello!'
+
+>>> t[0]
+
+12345
+
+>>> t
+
+(12345, 54321, 'hello!')
+
+>>> # Tuples may be nested:
+
+... u = t, (1, 2, 3, 4, 5)
+
+>>> u
+
+((12345, 54321, 'hello!'), (1, 2, 3, 4, 5))
+
+>>> # Tuples are immutable:
+
+... t[0] = 88888
+
+Traceback (most recent call last):
+
+File "<stdin>", line 1, in <module>
+
+TypeError: 'tuple' object does not support item assignment
+
+>>> # but they can contain mutable objects:
+
+... v = ([1, 2, 3], [3, 2, 1])
+
+>>> v
+
+([1, 2, 3], [3, 2, 1])
+
+>>> empty = ()
+
+>>> singleton = 'hello',    # <-- note trailing comma
+
+>>> len(empty)
+
+0
+
+>>> len(singleton)
+
+1
+
+>>> singleton
+
+('hello',)
+
+# Sets
+
+>>> basket = {'apple', 'orange', 'apple', 'pear', 'orange', 'banana'}
+
+>>> print(basket)                      # show that duplicates have been removed
+
+{'orange', 'banana', 'pear', 'apple'}
+
+>>> 'orange' in basket                 # fast membership testing
+
+True
+
+>>> 'crabgrass' in basket
+
+False
+
+>>> # Demonstrate set operations on unique letters from two words
+...
+
+>>> a = set('abracadabra')
+
+>>> b = set('alacazam')
+
+>>> a                                  # unique letters in a
+
+{'a', 'r', 'b', 'c', 'd'}
+
+>>> a - b                              # letters in a but not in b
+
+{'r', 'd', 'b'}
+
+>>> a | b                              # letters in a or b or both
+
+{'a', 'c', 'r', 'd', 'b', 'm', 'z', 'l'}
+
+>>> a & b                              # letters in both a and b
+
+{'a', 'c'}
+
+>>> a ^ b                              # letters in a or b but not both
+
+{'r', 'd', 'b', 'm', 'z', 'l'}
+
+Similarly to list comprehensions, set comprehensions are also supported:
+
+>>>
+>>> a = {x for x in 'abracadabra' if x not in 'abc'}
+>>> a
+{'r', 'd'}
+
+# Dictionaries
+
+>>> tel = {'jack': 4098, 'sape': 4139}
+
+>>> tel['guido'] = 4127
+
+>>> tel
+
+{'jack': 4098, 'sape': 4139, 'guido': 4127}
+
+>>> tel['jack']
+
+4098
+
+>>> del tel['sape']
+
+>>> tel['irv'] = 4127
+
+>>> tel
+
+{'jack': 4098, 'guido': 4127, 'irv': 4127}
+
+>>> list(tel)
+
+['jack', 'guido', 'irv']
+
+>>> sorted(tel)
+
+['guido', 'irv', 'jack']
+
+>>> 'guido' in tel
+
+True
+
+>>> 'jack' not in tel
+
+False
+
+>>> dict([('sape', 4139), ('guido', 4127), ('jack', 4098)])
+
+{'sape': 4139, 'guido': 4127, 'jack': 4098}
+
+dict comprehensions can be used to create dictionaries from arbitrary key and value expressions:
+
+>>>
+
+>>> {x: x**2 for x in (2, 4, 6)}
+
+{2: 4, 4: 16, 6: 36}
+
+>>> dict(sape=4139, guido=4127, jack=4098)
+
+{'sape': 4139, 'guido': 4127, 'jack': 4098}
+
+>>> dict(sape=4139, guido=4127, jack=4098)
+
+{'sape': 4139, 'guido': 4127, 'jack': 4098}
+
+>>> knights = {'gallahad': 'the pure', 'robin': 'the brave'}
+
+>>> for k, v in knights.items():
+
+...     print(k, v)
+
+...
+
+gallahad the pure
+
+robin the brave
+
+
+# enumerate() function.
+
+>>>
+
+>>> for i, v in enumerate(['tic', 'tac', 'toe']):
+
+...     print(i, v)
+
+...
+
+0 tic
+
+1 tac
+
+2 toe
+
+
+>>> questions = ['name', 'quest', 'favorite color']
+
+>>> answers = ['lancelot', 'the holy grail', 'blue']
+
+>>> for q, a in zip(questions, answers):
+
+...     print('What is your {0}?  It is {1}.'.format(q, a))
+
+...
+
+What is your name?  It is lancelot.
+
+What is your quest?  It is the holy grail.
+
+What is your favorite color?  It is blue.
+
+>>> for i in reversed(range(1, 10, 2)):
+
+...     print(i)
+
+...
+
+9
+
+7
+
+5
+
+3
+
+1
+
+>>> basket = ['apple', 'orange', 'apple', 'pear', 'orange', 'banana']
+
+>>> for f in sorted(set(basket)):
+
+...     print(f)
+
+...
+
+apple
+
+banana
+
+orange
+
+pear
+
+>>> import math
+
+>>> raw_data = [56.2, float('NaN'), 51.7, 55.3, 52.5, float('NaN'), 47.8]
+
+>>> filtered_data = []
+
+>>> for value in raw_data:
+
+...     if not math.isnan(value):
+
+...         filtered_data.append(value)
+
+...
+
+>>> filtered_data
+
+[56.2, 51.7, 55.3, 52.5, 47.8]
+
