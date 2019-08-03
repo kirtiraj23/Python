@@ -76,9 +76,9 @@ finally:
 
 >>> if hi_folks:
 
-...     print("Good Morning!")
+            ...     print("Good Morning!")
 
-...
+            ...
 Good Morning!
 
 # Numbers:-
@@ -113,32 +113,58 @@ With Python, it is possible to use the ** operator to calculate powers 1:
 900
 
 # Strings
+
 >>> 'spam eggs'  # single quotes
+
 'spam eggs'
+
 >>> 'doesn\'t'  # use \' to escape the single quote...
+
 "doesn't"
+
 >>> "doesn't"  # ...or use double quotes instead
+
 "doesn't"
+
 >>> '"Yes," they said.'
+
 '"Yes," they said.'
+
 >>> "\"Yes,\" they said."
+
 '"Yes," they said.'
+
 >>> '"Isn\'t," they said.'
+
 '"Isn\'t," they said.'
+
 >>> '"Isn\'t," they said.'
+
 '"Isn\'t," they said.'
+
 >>> print('"Isn\'t," they said.')
+
 "Isn't," they said.
+
 >>> s = 'First line.\nSecond line.'  # \n means newline
+
 >>> s  # without print(), \n is included in the output
+
 'First line.\nSecond line.'
+
 >>> print(s)  # with print(), \n produces a new line
+
 First line.
+
 Second line.
+
 >>> print('C:\some\name')  # here \n means newline!
+
 C:\some
+
 ame
 >>> print(r'C:\some\name')  # note the r before the quote
+
 C:\some\name
 
 String literals can span multiple lines. One way is using triple-quotes: """...""" or '''...'''. End of lines are automatically included in the string, but it’s possible to prevent this by adding a \ at the end of the line. The following example:
@@ -159,8 +185,11 @@ Strings can be concatenated (glued together) with the + operator, and repeated w
 
 >>>
 >>> # 3 times 'un', followed by 'ium'
+
 >>> 3 * 'un' + 'ium'
+
 'unununium'
+
 Two or more string literals (i.e. the ones enclosed between quotes) next to each other are automatically concatenated.
 
 >>>
@@ -185,15 +214,23 @@ SyntaxError: invalid syntax
     ('un' * 3) 'ium'
                    ^
 SyntaxError: invalid syntax
+    
 If you want to concatenate variables or a variable and a literal, use +:
 
 >>>
+
 >>> prefix + 'thon'
+
 'Python'
+
 Strings can be indexed (subscripted), with the first character having index 0. There is no separate character type; a character is simply a string of size one:
+
 >>> word = 'Python'
+
 >>> word[0]  # character in position 0
+
 'P'
+
 >>> word[5]  # character in position 5
 'n'
 Indices may also be negative numbers, to start counting from the right:
