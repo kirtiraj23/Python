@@ -1,7 +1,8 @@
 # Python
 Print("Hello World")
 It will print the statement inside the print block.
-----
+
+-----------
 Hello World
 
 ## Handling Exception:---
